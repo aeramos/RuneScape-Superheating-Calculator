@@ -7,6 +7,9 @@ and the time needed to superheat the ores.
 It is currently under development on GitHub at:
 https://github.com/Alejandro-Ramos/RuneScape-Superheating-Calculator
 
+It can be used online at:
+https://Alejandro-Ramos.github.io/RuneScape-Superheating-Calculator
+
 ### MAINTAINERS
 
  * Alejandro Ramos (https://github.com/Alejandro-Ramos)
