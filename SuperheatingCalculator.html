@@ -1,0 +1,84 @@
+<!--RuneScape Superheating Calculator is a website that allows a user to
+    calculate what items to buy to superheat ores in RuneScape.
+
+    Copyright (C) 2016 Alejandro Ramos
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--[if lte IE 8]>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <![endif]-->
+        <!--[if (gt IE 8) | (!IE)]><!-->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <!--<![endif]-->
+        <script src="backend.js"></script> <!-- needs jQuery -->
+        <title>RS Superheating</title>
+    </head>
+    <body>
+        <h1>RuneScape Superheating Calculator</h1>
+        <h4>Select bar to make</h4>
+        <select id="barType">
+            <option value="select">Select</option>
+            <option value="bronze bar">Bronze Bar</option>
+            <option value="iron bar">Iron Bar</option>
+            <option value="silver bar">Silver Bar</option>
+            <option value="steel bar">Steel Bar</option>
+            <option value="gold bar">Gold Bar</option>
+            <option value="mithril bar">Mithril Bar</option>
+            <option value="adamant bar">Adamant Bar</option>
+            <option value="rune bar">Rune Bar</option>
+        </select>
+        <h4>Enter your total budget</h4>
+        <input type="text" id="totalBudget" />
+
+        <h4>Enter the max amount of time (in seconds)</h4>
+        <input type="text" id="maxTime" />
+        <button type="button" onclick="assignValues();">Submit</button>
+
+        <hr id="stuffToBuyhr" style="display:none" />
+
+        <h4 id="ore1Type"></h4>
+        <p id="ore1ToBuy"></p>
+
+        <h4 id="ore2Type"></h4>
+        <p id="ore2ToBuy"></p>
+
+        <h4 id="coal"></h4>
+        <p id="coalToBuy"></p>
+
+        <h4 id="natureRune"></h4>
+        <p id="natureRuneToBuy"></p>
+
+        <hr id="statshr" style="display:none" />
+
+        <h4 id="priceOfOne"></h4>
+        <p id="showPriceOfOne"></p>
+        <h4 id="totalPrice"></h4>
+        <p id="showTotalPrice"></p>
+
+        <h4 id="profitOfOne"></h4>
+        <p id="showProfitOfOne"></p>
+        <h4 id="totalProfit"></h4>
+        <p id="showTotalProfit"></p>
+
+        <h4 id="timeOfOne"></h4>
+        <p id="showTimeOfOne"></p>
+        <h4 id="totalTime"></h4>
+        <p id="showTotalTime"></p>
+    </body>
+</html>
