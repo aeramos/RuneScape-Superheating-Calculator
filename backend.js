@@ -212,7 +212,7 @@ function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
     $("#ore1").css({'display' : 'table'});
     $("#natureRune").css({'display' : 'table'});
 
-    $("#prices").css({'display' : 'table'});
+    $("#prices").css({'display' : 'inline-block'});
     $("#ore1Price").css({'display' : 'table'});
     $("#natureRunePrice").css({'display' : 'table'});
     $("#price").css({'display' : 'table'});
