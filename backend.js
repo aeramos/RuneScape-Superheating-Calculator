@@ -54,7 +54,7 @@ function assignValues() {
 
     maxTime = maxTime.replace(/\D/g,'');
     if (maxTime.length <= 0) {
-        alert("Please enter a budget to continue");
+        alert("Please enter a max amount of time to continue");
         return;
     }
 
@@ -97,6 +97,9 @@ function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
                                         id1, amountOfOre1, id2, amountOfOre2) {
     var amountOfNatureRune = 1; // constant
     var priceOfNatureRune = getCurrentPrice(NATURE_RUNE);
+
+    var ore1Name;
+    var ore2Name;
 
     var priceOfOre1 = getCurrentPrice(id1);
     var oreRuneToBuy; // amount of ore/amount of nature runes to buy
@@ -143,38 +146,36 @@ function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
     switch(id1) {
         case COPPER_ORE:
         case TIN_ORE:
-            $("#ore1Type").text("Copper Ore");
-            $("#ore2Type").text("Tin Ore");
+            ore1Name = "Copper Ore";
+            ore2Name = "Tin Ore";
             priceOfBar = getCurrentPrice(BRONZE_BAR);
             break;
         case IRON_ORE:
-            $("#ore1Type").text("Iron Ore");
+            ore1Name = "Iron Ore";
             if (amountOfCoal == 0) { // steel bars need 1 coal
                 priceOfBar = getCurrentPrice(IRON_BAR);
             } else {
                 priceOfBar = getCurrentPrice(STEEL_BAR);
             }
-            $("#ore1Type").text("Iron Ore");
-            priceOfBar = getCurrentPrice(IRON_BAR);
             break;
         case SILVER_ORE:
-            $("#ore1Type").text("Siver Ore");
+            ore1Name = "Silver Ore";
             priceOfBar = getCurrentPrice(SILVER_BAR);
             break;
         case GOLD_ORE:
-            $("#ore1Type").text("Gold Ore");
+            ore1Name = "Gold Ore";
             priceOfBar = getCurrentPrice(GOLD_BAR);
             break;
         case MITHRIL_ORE:
-            $("#ore1Type").text("Mithril Ore");
+            ore1Name = "Mithril Ore";
             priceOfBar = getCurrentPrice(MITHRIL_BAR);
             break;
         case ADAMANT_ORE:
-            $("#ore1Type").text("Adamantite Ore");
+            ore1Name = "Adamantite Ore";
             priceOfBar = getCurrentPrice(ADAMANT_BAR);
             break;
         case RUNE_ORE:
-            $("#ore1Type").text("Runite Ore");
+            ore1Name = "Runite Ore";
             priceOfBar = getCurrentPrice(RUNE_BAR);
             break;
     }
@@ -185,37 +186,47 @@ function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
 
     profitOfOne = priceOfBar - priceOfOne;
     totalProfit = profitOfOne * oreRuneToBuy;
-    $("#stuffToBuyhr").css({'display' : 'block'});
 
-    $("#ore1Type").text($("#ore1Type").text() + " to buy");
-    $("#ore1ToBuy").text(oreRuneToBuy);
+    $("#ore1").text(ore1Name + ": " + oreRuneToBuy);
     if (amountOfOre2 > 0) {
-        $("#ore2Type").text($("#ore2Type").text() + " to buy");
-        $("#ore2ToBuy").text(oreRuneToBuy);
+        $("#ore2").text(ore2Name + ": " + oreRuneToBuy);
     }
     if (coalToBuy > 0) {
-        $("#coal").text("Coal to buy");
-        $("#coalToBuy").text(coalToBuy);
+        $("#coal").text("Coal: " + coalToBuy);
     }
-    $("#natureRune").text("Nature Rune to buy");
-    $("#natureRuneToBuy").text(oreRuneToBuy);
+    $("#natureRune").text("Nature Rune: " + oreRuneToBuy);
 
-    $("#statshr").css({'display' : 'block'});
+    $("#ore1Price").text(ore1Name + ": " + (oreRuneToBuy * priceOfOre1));
+    if (amountOfOre2 > 0) {
+        $("#ore2Price").text(ore2Name + ": " + (oreRuneToBuy * priceOfOre2));
+    }
+    if (coalToBuy > 0) {
+        $("#coalPrice").text("Coal: " + (coalToBuy * priceOfCoal));
+    }
+    $("#natureRunePrice").text("Nature Rune: " + (oreRuneToBuy * priceOfNatureRune));
+    $("#price").text("Total Price: " + totalPrice);
+    $("#profit").text("Total Profit: " + totalProfit);
+    $("#time").text("Time: " + (totalTime) + " seconds");
 
-    $("#priceOfOne").text("Price to make one:");
-    $("#showPriceOfOne").text(priceOfOne + "gp");
-    $("#totalPrice").text("Total Price:");
-    $("#showTotalPrice").text(totalPrice + "gp");
+    $("#stuffToBuy").css({'display' : 'inline-block'});
+    $("#ore1").css({'display' : 'table'});
+    $("#natureRune").css({'display' : 'table'});
 
-    $("#profitOfOne").text("Profit to make one:");
-    $("#showProfitOfOne").text(profitOfOne + "gp");
-    $("#totalProfit").text("Total profit:");
-    $("#showTotalProfit").text(totalProfit + "gp");
+    $("#prices").css({'display' : 'table'});
+    $("#ore1Price").css({'display' : 'table'});
+    $("#natureRunePrice").css({'display' : 'table'});
+    $("#price").css({'display' : 'table'});
+    $("#profit").css({'display' : 'table'});
+    $("#time").css({'display' : 'table'});
 
-    $("#timeOfOne").text("Time to make one:");
-    $("#showTimeOfOne").text(timeOfOne + " seconds");
-    $("#totalTime").text("Total time:");
-    $("#showTotalTime").text(totalTime + " seconds");
+    if (amountOfOre2 > 0) {
+        $("#ore2").css({'display' : 'table'});
+        $("#ore2Price").css({'display' : 'table'});
+    }
+    if (amountOfCoal > 0) {
+        $("#coal").css({'display' : 'table'});
+        $("#coalPrice").css({'display' : 'table'});
+    }
 }
 
 function getCurrentPrice(itemNum) {
@@ -239,34 +250,29 @@ function getCurrentPrice(itemNum) {
 };
 
 function resetShownValues() {
-    $("#stuffToBuyhr").css({'display' : 'none'});
-
-    $("#ore1Type").empty();
-    $("#ore1ToBuy").empty();
-
-    $("#ore2Type").empty();
-    $("#ore2ToBuy").empty();
-
+    $("#stuffToBuy").css({'display' : 'none'})
+    $("#ore1").empty();
+    $("#ore1").css({'display' : 'none'});
+    $("#ore2").empty();
+    $("#ore2").css({'display' : 'none'});
     $("#coal").empty();
-    $("#coalToBuy").empty();
-
+    $("#coal").css({'display' : 'none'});
     $("#natureRune").empty();
-    $("#natureRuneToBuy").empty();
+    $("#natureRune").css({'display' : 'none'});
 
-    $("#statshr").css({'display' : 'none'});
-
-    $("#priceOfOne").empty();
-    $("#showPriceOfOne").empty();
-    $("#totalPrice").empty();
-    $("#showTotalPrice").empty();
-
-    $("#profitOfOne").empty();
-    $("#showProfitOfOne").empty();
-    $("#totalProfit").empty();
-    $("#showTotalProfit").empty();
-
-    $("#timeOfOne").empty();
-    $("#showTimeOfOne").empty();
-    $("#totalTime").empty();
-    $("#showTotalTime").empty();
+    $("#prices").css({'display' : 'none'});
+    $("#ore1Price").empty();
+    $("#ore1Price").css({'display' : 'none'});
+    $("#ore2Price").empty();
+    $("#ore2Price").css({'display' : 'none'});
+    $("#coalPrice").empty();
+    $("#coalPrice").css({'display' : 'none'});
+    $("#natureRunePrice").empty();
+    $("#natureRunePrice").css({'display' : 'none'});
+    $("#price").empty();
+    $("#price").css({'display' : 'none'});
+    $("#profit").empty();
+    $("#profit").css({'display' : 'none'});
+    $("#time").empty();
+    $("#time").css({'display' : 'none'});
 }

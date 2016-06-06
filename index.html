@@ -27,58 +27,84 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <!--<![endif]-->
         <script src="backend.js"></script> <!-- needs jQuery -->
+        <link rel="stylesheet" type="text/css" href="styles.css">
         <title>RS Superheating</title>
     </head>
     <body>
         <h1>RuneScape Superheating Calculator</h1>
-        <h4>Select bar to make</h4>
-        <select id="barType">
-            <option value="select">Select</option>
-            <option value="bronze bar">Bronze Bar</option>
-            <option value="iron bar">Iron Bar</option>
-            <option value="silver bar">Silver Bar</option>
-            <option value="steel bar">Steel Bar</option>
-            <option value="gold bar">Gold Bar</option>
-            <option value="mithril bar">Mithril Bar</option>
-            <option value="adamant bar">Adamant Bar</option>
-            <option value="rune bar">Rune Bar</option>
-        </select>
-        <h4>Enter your total budget</h4>
-        <input type="text" id="totalBudget" />
-
-        <h4>Enter the max amount of time (in seconds)</h4>
-        <input type="text" id="maxTime" />
-        <button type="button" onclick="assignValues();">Submit</button>
-
-        <hr id="stuffToBuyhr" style="display:none" />
-
-        <h4 id="ore1Type"></h4>
-        <p id="ore1ToBuy"></p>
-
-        <h4 id="ore2Type"></h4>
-        <p id="ore2ToBuy"></p>
-
-        <h4 id="coal"></h4>
-        <p id="coalToBuy"></p>
-
-        <h4 id="natureRune"></h4>
-        <p id="natureRuneToBuy"></p>
-
-        <hr id="statshr" style="display:none" />
-
-        <h4 id="priceOfOne"></h4>
-        <p id="showPriceOfOne"></p>
-        <h4 id="totalPrice"></h4>
-        <p id="showTotalPrice"></p>
-
-        <h4 id="profitOfOne"></h4>
-        <p id="showProfitOfOne"></p>
-        <h4 id="totalProfit"></h4>
-        <p id="showTotalProfit"></p>
-
-        <h4 id="timeOfOne"></h4>
-        <p id="showTimeOfOne"></p>
-        <h4 id="totalTime"></h4>
-        <p id="showTotalTime"></p>
+        <table id="constraints">
+            <tr>
+                <th>Constraints</th>
+            </tr>
+            <tr>
+                <td>Bar to make: 
+                    <select id="barType">
+                        <option value="select">Select</option>
+                        <option value="bronze bar">Bronze Bar</option>
+                        <option value="iron bar">Iron Bar</option>
+                        <option value="silver bar">Silver Bar</option>
+                        <option value="steel bar">Steel Bar</option>
+                        <option value="gold bar">Gold Bar</option>
+                        <option value="mithril bar">Mithril Bar</option>
+                        <option value="adamant bar">Adamant Bar</option>
+                        <option value="rune bar">Rune Bar</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Budget: <input type="text" id="totalBudget" /></td>
+            </tr>
+            <tr>
+                <td>Max time (in seconds): <input type="text" id="maxTime" /></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" onclick="assignValues();">Submit</button>
+                </td>
+            </tr>
+        </table>
+        <table id="stuffToBuy" style="display:none">
+            <tr>
+                <th>Stuff to Buy</th>
+            </tr>
+            <tr>
+                <td id="ore1" style="display:none"></td>
+            </tr>
+            <tr>
+                <td id="ore2" style="display:none"></td>
+            </tr>
+            <tr>
+                <td id="coal" style="display:none"></td>
+            </tr>
+            <tr>
+                <td id="natureRune" style="display:none"></td>
+            </tr>
+        </table>
+        <table id="prices" style="display:none">
+            <tr>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td id="ore1Price" style="display:none"></td>
+            </tr>
+            <tr>
+                <td id="ore2Price" style="display:none"></td>
+            </tr>
+            <tr>
+                <td id="coalPrice" style="display:none"></td>
+            </tr>
+            <tr>
+                <td id="natureRunePrice" style="display:none"></td>
+            </tr>
+            <tr>
+                <td id="price" style="display:none"></td>
+            </tr>
+            <tr>
+                <td id="profit" style="display:none"></td>
+            </tr>
+            <tr>
+                <td id="time" style="display:none"></td>
+            </tr>
+        </table>
     </body>
 </html>

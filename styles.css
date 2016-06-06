@@ -1,0 +1,16 @@
+h1 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+table {
+    border: 3px solid;
+}
+
+tr, td {
+    border: 1px solid;
+}
+
+th {
+    border: 2px solid;
+}
