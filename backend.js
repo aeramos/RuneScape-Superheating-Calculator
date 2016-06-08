@@ -62,7 +62,6 @@ function assignValues() {
         case "select":
             alert("Please select a bar to continue");
             return;
-            break;
         case "bronze bar":
             printSuppliesNeeded(totalBudget, maxTime, 0, COPPER_ORE, 1,
                                                             TIN_ORE, 1);
@@ -92,119 +91,99 @@ function assignValues() {
 }
 
 // prints the supplies needed
-// needs a major refactor to make it more modular
 function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
                                         id1, amountOfOre1, id2, amountOfOre2) {
-    var amountOfNatureRune = 1; // constant
+    // NATURE RUNE
     var priceOfNatureRune = getCurrentPrice(NATURE_RUNE);
 
-    var ore1Name;
-    var ore2Name;
-
+    // ORE1
     var priceOfOre1 = getCurrentPrice(id1);
-    var oreRuneToBuy; // amount of ore/amount of nature runes to buy
 
-    var priceOfOneBar;
-    var totalPrice;
-    var profitOfOne;
-    var totalProfit;
-
-    var timeOfOne;
-    var totalTime;
-
-    var priceOfOne;
-
-    var priceOfOre2 = 0;
+    // ORE2
+    var priceOfOre2;
     if (amountOfOre2 > 0) {
         priceOfOre2 = getCurrentPrice(id2);
+    } else {
+        priceOfOre2 = 0;
     }
 
-    // don't waste time getting the price if it will be unused
-    var priceOfCoal = 0;
-    var coalToBuy = 0;
+    //COAL
+    var priceOfCoal;
     if (amountOfCoal > 0) {
         priceOfCoal = getCurrentPrice(COAL);
+    } else {
+        priceOfCoal = 0;
     }
-    priceOfOne = priceOfNatureRune + (amountOfOre1 * priceOfOre1) +
-                                    (amountOfOre2 * priceOfOre2) +
-                                    (amountOfCoal * priceOfCoal);
 
-    // round down because the user can't buy over their budget
-    oreRuneToBuy = Math.floor(totalBudget / priceOfOne);
+    // REFERENCE + CONSTANTS
+    var priceToMake = priceOfNatureRune +
+                    (amountOfOre1 * priceOfOre1) +
+                    (amountOfOre2 * priceOfOre2) +
+                    (amountOfCoal * priceOfCoal);
+    var oreRuneToBuy = Math.floor(totalBudget / priceToMake);
+    var totalPriceToMake = priceToMake * oreRuneToBuy;
 
-    timeOfOne = 1.2; // constant time, all superheating takes 1.2 seconds
-    totalTime = timeOfOne * oreRuneToBuy;
+    var ore1Name; // value given in switch statement
+    var coalToBuy = oreRuneToBuy * amountOfCoal;
 
+    var priceOfOneBar; // the ge price of the chosen bar - assigned in switch
+
+    var profitOfOne; // priceOfOneBar - priceToMake
+    var totalProfit; // profitOfOne * oreRuneToBuy
+
+    var timeOfOne = 1.2; // time taken to make a bar from superheating
+    var totalTime = timeOfOne * oreRuneToBuy; // timeOfOne * oreRuneToBuy
     if (totalTime > maxTime) {
         oreRuneToBuy = Math.floor(maxTime / timeOfOne);
         totalTime = timeOfOne * oreRuneToBuy;
     }
 
-    coalToBuy = oreRuneToBuy * amountOfCoal;
-
-
     switch(id1) {
         case COPPER_ORE:
         case TIN_ORE:
             ore1Name = "Copper Ore";
-            ore2Name = "Tin Ore";
-            priceOfBar = getCurrentPrice(BRONZE_BAR);
+            var ore2Name = "Tin Ore";
+            priceOfOneBar = getCurrentPrice(BRONZE_BAR);
             break;
         case IRON_ORE:
             ore1Name = "Iron Ore";
-            if (amountOfCoal == 0) { // steel bars need 1 coal
-                priceOfBar = getCurrentPrice(IRON_BAR);
+            if (amountOfCoal > 0) {
+                priceOfOneBar = getCurrentPrice(STEEL_BAR);
             } else {
-                priceOfBar = getCurrentPrice(STEEL_BAR);
+                priceOfOneBar = getCurrentPrice(IRON_BAR);
             }
             break;
         case SILVER_ORE:
             ore1Name = "Silver Ore";
-            priceOfBar = getCurrentPrice(SILVER_BAR);
+            priceOfOneBar = getCurrentPrice(SILVER_BAR);
             break;
         case GOLD_ORE:
             ore1Name = "Gold Ore";
-            priceOfBar = getCurrentPrice(GOLD_BAR);
+            priceOfOneBar = getCurrentPrice(GOLD_BAR);
             break;
         case MITHRIL_ORE:
             ore1Name = "Mithril Ore";
-            priceOfBar = getCurrentPrice(MITHRIL_BAR);
+            priceOfOneBar = getCurrentPrice(MITHRIL_BAR);
             break;
         case ADAMANT_ORE:
             ore1Name = "Adamantite Ore";
-            priceOfBar = getCurrentPrice(ADAMANT_BAR);
+            priceOfOneBar = getCurrentPrice(ADAMANT_BAR);
             break;
         case RUNE_ORE:
             ore1Name = "Runite Ore";
-            priceOfBar = getCurrentPrice(RUNE_BAR);
+            priceOfOneBar = getCurrentPrice(RUNE_BAR);
             break;
     }
 
-    totalPrice = (oreRuneToBuy * priceOfNatureRune) +
-                (oreRuneToBuy * priceOfOre1) + (oreRuneToBuy * priceOfOre2) +
-                (coalToBuy * priceOfCoal);
-
-    profitOfOne = priceOfBar - priceOfOne;
+    profitOfOne = priceOfOneBar - priceToMake;
     totalProfit = profitOfOne * oreRuneToBuy;
 
     $("#ore1").text(ore1Name + ": " + oreRuneToBuy);
-    if (amountOfOre2 > 0) {
-        $("#ore2").text(ore2Name + ": " + oreRuneToBuy);
-    }
-    if (coalToBuy > 0) {
-        $("#coal").text("Coal: " + coalToBuy);
-    }
     $("#natureRune").text("Nature Rune: " + oreRuneToBuy);
 
     $("#ore1Price").text(ore1Name + ": " + (oreRuneToBuy * priceOfOre1));
-    if (amountOfOre2 > 0) {
-        $("#ore2Price").text(ore2Name + ": " + (oreRuneToBuy * priceOfOre2));
-    }
-    if (coalToBuy > 0) {
-        $("#coalPrice").text("Coal: " + (coalToBuy * priceOfCoal));
-    }
     $("#natureRunePrice").text("Nature Rune: " + (oreRuneToBuy * priceOfNatureRune));
-    $("#price").text("Total Price: " + totalPrice);
+    $("#price").text("Total Price: " + totalPriceToMake);
     $("#profit").text("Total Profit: " + totalProfit);
     $("#time").text("Time: " + (totalTime) + " seconds");
 
@@ -220,10 +199,14 @@ function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
     $("#time").css({'display' : 'table'});
 
     if (amountOfOre2 > 0) {
+        $("#ore2").text(ore2Name + ": " + oreRuneToBuy);
+        $("#ore2Price").text(ore2Name + ": " + (oreRuneToBuy * priceOfOre2));
         $("#ore2").css({'display' : 'table'});
         $("#ore2Price").css({'display' : 'table'});
     }
-    if (amountOfCoal > 0) {
+    if (coalToBuy > 0) {
+        $("#coal").text("Coal: " + coalToBuy);
+        $("#coalPrice").text("Coal: " + (coalToBuy * priceOfCoal));
         $("#coal").css({'display' : 'table'});
         $("#coalPrice").css({'display' : 'table'});
     }
@@ -247,10 +230,10 @@ function getCurrentPrice(itemNum) {
         }
     });
     return currentPrice;
-};
+}
 
 function resetShownValues() {
-    $("#stuffToBuy").css({'display' : 'none'})
+    $("#stuffToBuy").css({'display' : 'none'});
     $("#ore1").empty();
     $("#ore1").css({'display' : 'none'});
     $("#ore2").empty();
