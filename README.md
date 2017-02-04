@@ -5,14 +5,14 @@ what items to buy to superheat ores in RuneScape. It also shows the profit made
 and the time needed to superheat the ores.
 
 It is currently under development on GitHub at:
-https://github.com/Alejandro-Ramos/RuneScape-Superheating-Calculator
+https://github.com/aeramos/RuneScape-Superheating-Calculator
 
 It can be used online at:
-https://Alejandro-Ramos.github.io/RuneScape-Superheating-Calculator
+https://aeramos.github.io/RuneScape-Superheating-Calculator
 
 ### MAINTAINERS
 
- * Alejandro Ramos (https://github.com/Alejandro-Ramos)
+ * Alejandro Ramos (https://github.com/aeramos)
 
 
 ### LICENSE

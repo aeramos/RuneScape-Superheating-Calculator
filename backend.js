@@ -215,7 +215,7 @@ function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
 function getCurrentPrice(itemNum) {
     var currentPrice; // the return statement in the ajax call doesn't work
     $.ajax({
-        url: 'https://jsonp.afeld.me/?url=http%3A%2F%2Fservices.runescape.com%2Fm%3Ditemdb_rs%2Fapi%2Fgraph%2F' + itemNum + '.json',
+        url: 'https://cors-anywhere.herokuapp.com/http://services.runescape.com/m=itemdb_rs/api/graph/' + itemNum + '.json',
         // Deprecated + "in the process of being removed from the web platform"
         async: false,
         dataType: 'json',
