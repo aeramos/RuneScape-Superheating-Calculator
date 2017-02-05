@@ -124,7 +124,7 @@ function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
     var totalPriceToMake = priceToMake * oreRuneToBuy;
 
     var ore1Name; // value given in switch statement
-    var coalToBuy = oreRuneToBuy * amountOfCoal;
+    var coalToBuy;
 
     var priceOfOneBar; // the ge price of the chosen bar - assigned in switch
 
@@ -135,6 +135,7 @@ function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
     var totalTime = timeOfOne * oreRuneToBuy; // timeOfOne * oreRuneToBuy
     if (totalTime > maxTime) {
         oreRuneToBuy = Math.floor(maxTime / timeOfOne);
+        coalToBuy = oreRuneToBuy * amountOfCoal;
         totalTime = timeOfOne * oreRuneToBuy;
     }
 
