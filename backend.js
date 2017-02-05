@@ -1,7 +1,7 @@
 /*  RuneScape Superheating Calculator is a website that allows a user to
  *  calculate what items to buy to superheat ores in RuneScape.
  *
- *  Copyright (C) 2016 Alejandro Ramos
+ *  Copyright (C) 2016, 2017 Alejandro Ramos
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
@@ -18,7 +18,7 @@
  */
 
 
-// CONSTANTS
+// Item IDs in Grand Exchange API
 var COPPER_ORE = 436;
 var TIN_ORE = 438;
 var IRON_ORE = 440;
@@ -40,6 +40,9 @@ var ADAMANT_BAR = 2361;
 var RUNE_BAR = 2363;
 
 var NATURE_RUNE = 561;
+
+// first function called
+// calls the other functions to really start the program
 function assignValues() {
     // resets for when the calculator is used multiple times without refreshing
     resetShownValues();
@@ -213,12 +216,12 @@ function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
     }
 }
 
+// gets the current GE price of the given item from the GE API
 function getCurrentPrice(itemNum) {
     var currentPrice; // the return statement in the ajax call doesn't work
     $.ajax({
         url: 'https://cors-anywhere.herokuapp.com/http://services.runescape.com/m=itemdb_rs/api/graph/' + itemNum + '.json',
-        // Deprecated + "in the process of being removed from the web platform"
-        async: false,
+        async: false, // Deprecated + "in the process of being removed from the web platform"
         dataType: 'json',
         success: function (json) {
             for (var last in json.daily) {
@@ -233,6 +236,7 @@ function getCurrentPrice(itemNum) {
     return currentPrice;
 }
 
+// resets everything so that it looks like when the program started
 function resetShownValues() {
     $("#stuffToBuy").css({'display' : 'none'});
     $("#ore1").empty();

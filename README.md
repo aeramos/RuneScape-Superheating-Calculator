@@ -25,7 +25,7 @@ COPYING and COPYING.LESSER files.
 RuneScape Superheating Calculator is a website that allows a user to calculate
 what items to buy to superheat ores in RuneScape.
 
-Copyright (C) 2016 Alejandro Ramos
+Copyright (C) 2016, 2017 Alejandro Ramos
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
