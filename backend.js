@@ -46,13 +46,35 @@ var NATURE_RUNE = 561;
 function assignValues() {
     // resets for when the calculator is used multiple times without refreshing
     resetShownValues();
-    var totalBudget = $("#totalBudget").val();
+    var totalBudget = $("#totalBudget").val().toLowerCase();
     var maxTime = $("#maxTime").val();
 
-    totalBudget = totalBudget.replace(/\D/g,'');
+    // only keep numbers, decimal points, and 'k', 'm', and 'b'
+    totalBudget = totalBudget.replace(/[^0-9.kmb]/g,'');
     if (totalBudget.length <= 0) {
         alert("Please enter a budget to continue");
         return;
+    }
+
+    if (typeof totalBudget === 'string' || totalBudget instanceof String) {
+        for (var i = 0; i <= totalBudget.length; i++) {
+            if (totalBudget[i] == 'k') {
+                // remove the letter from the string
+                totalBudget = totalBudget.slice(0, i) + totalBudget.slice(i+1, totalBudget.length);
+                // multiply the numbers before the letter by 1k/1m/1b
+                totalBudget = totalBudget.substring(0, i) * 1000 + totalBudget.substring(i)
+            } else if (totalBudget[i] == 'm') {
+                // remove the letter from the string
+                totalBudget = totalBudget.slice(0, i) + totalBudget.slice(i+1, totalBudget.length);
+                // multiply the numbers before the letter by 1k/1m/1b
+                totalBudget = totalBudget.substring(0, i) * 1000000 + totalBudget.substring(i)
+            } else if (totalBudget[i] == 'b') {
+                // remove the letter from the string
+                totalBudget = totalBudget.slice(0, i) + totalBudget.slice(i+1, totalBudget.length);
+                // multiply the numbers before the letter by 1k/1m/1b
+                totalBudget = totalBudget.substring(0, i) * 1000000000 + totalBudget.substring(i)
+            }
+        }
     }
 
     maxTime = maxTime.replace(/\D/g,'');
@@ -136,10 +158,12 @@ function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
 
     var timeOfOne = 1.2; // time taken to make a bar from superheating
     var totalTime = timeOfOne * oreRuneToBuy; // timeOfOne * oreRuneToBuy
-    if (totalTime > maxTime) {
-        oreRuneToBuy = Math.floor(maxTime / timeOfOne);
-        coalToBuy = oreRuneToBuy * amountOfCoal;
-        totalTime = timeOfOne * oreRuneToBuy;
+    if (maxTime > 0) {
+        if (totalTime > maxTime) {
+            oreRuneToBuy = Math.floor(maxTime / timeOfOne);
+            coalToBuy = oreRuneToBuy * amountOfCoal;
+            totalTime = timeOfOne * oreRuneToBuy;
+        }
     }
 
     switch(id1) {
