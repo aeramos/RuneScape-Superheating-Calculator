@@ -157,7 +157,7 @@ function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
     var totalProfit; // profitOfOne * oreRuneToBuy
 
     var timeOfOne = 1.2; // time taken to make a bar from superheating
-    var totalTime = timeOfOne * oreRuneToBuy; // timeOfOne * oreRuneToBuy
+    var totalTime = Math.ceil(timeOfOne * oreRuneToBuy); // timeOfOne * oreRuneToBuy
     if (maxTime > 0) {
         if (totalTime > maxTime) {
             oreRuneToBuy = Math.floor(maxTime / timeOfOne);
