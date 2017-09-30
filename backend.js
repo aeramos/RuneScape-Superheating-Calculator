@@ -162,7 +162,7 @@ function printSuppliesNeeded(totalBudget, maxTime, amountOfCoal,
         if (totalTime > maxTime) {
             oreRuneToBuy = Math.floor(maxTime / timeOfOne);
             coalToBuy = oreRuneToBuy * amountOfCoal;
-            totalTime = timeOfOne * oreRuneToBuy;
+            totalTime = Math.ceil(timeOfOne * oreRuneToBuy);
         }
     }
 
